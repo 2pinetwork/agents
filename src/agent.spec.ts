@@ -1,63 +1,37 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import agent from './agent'
-import config from './config.json'
-import archimedesAbi from './abis/archimedes.json'
-import { ethers } from 'ethers'
-import {
-  FindingType,
-  FindingSeverity,
-  Finding,
-  HandleTransaction,
-  createTransactionEvent
-} from 'forta-agent'
+import { provideHandleTransaction } from './agent'
+import { HandleTransaction, TransactionEvent } from 'forta-agent'
 
-describe('referral commission rate', () => {
+describe('2pi agent', () => {
   let handleTransaction: HandleTransaction
 
-  const network = '80001'
-  const iface   = new ethers.utils.Interface(archimedesAbi)
-
-  const createTxEventWithReferralCommissionRate = (rate: number) => createTransactionEvent({
-    network:     network as any,
-    receipt:     {} as any,
-    block:       {} as any,
-    transaction: {
-      to:   config.addresses[network].archimedes.toLowerCase(),
-      data: iface.encodeFunctionData('setReferralCommissionRate', [rate])
-    } as any
-  })
+  const mockReferralCommissionRateAgent = { handleTransaction: jest.fn() }
+  const mockTxEvent: TransactionEvent   = { some: 'event' } as any
 
   beforeAll(() => {
-    handleTransaction = agent.handleTransaction
+    handleTransaction = provideHandleTransaction(
+      mockReferralCommissionRateAgent
+    )
   })
 
   describe('handleTransaction', () => {
-    it('returns empty findings if other function is invoked', async () => {
-      const txEvent  = createTransactionEvent({
-        transaction: {} as any,
-        receipt:     {} as any,
-        block:       {} as any
-      })
-      const findings = await handleTransaction(txEvent)
+    it('invokes referral commission rate agent and returns their findings', async () => {
+      const mockFinding = { some: 'finding' }
 
-      expect(findings).toStrictEqual([])
-    })
+      mockReferralCommissionRateAgent.handleTransaction.mockReturnValueOnce(
+        [mockFinding]
+      )
 
-    it('returns a finding if setReferralCommissionRate was invoked', async () => {
-      const rate     = 20
-      const txEvent  = createTxEventWithReferralCommissionRate(rate)
-      const findings = await handleTransaction(txEvent)
+      const findings = await handleTransaction(mockTxEvent)
 
-      expect(findings).toStrictEqual([
-        Finding.fromObject({
-          name:        'Referral commission rate changed',
-          description: `New rate: ${rate}`,
-          alertId:     '2PI-1',
-          type:        FindingType.Info,
-          severity:    FindingSeverity.Info
-        })
-      ])
+      expect(findings).toStrictEqual([mockFinding])
+      expect(
+        mockReferralCommissionRateAgent.handleTransaction
+      ).toHaveBeenCalledTimes(1)
+      expect(
+        mockReferralCommissionRateAgent.handleTransaction
+      ).toHaveBeenCalledWith(mockTxEvent)
     })
   })
 })

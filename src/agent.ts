@@ -1,11 +1,11 @@
 import { HandleTransaction, TransactionEvent } from 'forta-agent'
-import referralCommissionRateAgent from './agents/referralCommissionRate'
+import referralCommissionRateAgent from './agents/referral.commission.rate'
 
 type Agent = {
   handleTransaction: HandleTransaction
 }
 
-const provideHandleTransaction = (
+export const provideHandleTransaction = (
   referralCommissionRateAgent: Agent
 ): HandleTransaction => {
   return async (txEvent: TransactionEvent) => {
