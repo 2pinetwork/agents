@@ -2,11 +2,9 @@ import config from '../config.json'
 import archimedesAbi from '../abis/archimedes.json'
 import { ethers } from 'ethers'
 import {
-  BlockEvent,
   Finding,
   FindingSeverity,
   FindingType,
-  HandleBlock,
   HandleTransaction,
   TransactionEvent
 } from 'forta-agent'
@@ -41,13 +39,6 @@ const handleTransaction: HandleTransaction = async (txEvent: TransactionEvent) =
   return findings
 }
 
-// const handleBlock: HandleBlock = async (blockEvent: BlockEvent) => {
-//   const findings: Array<Finding> = []
-//   // detect some block condition
-//   return findings
-// }
-
 export default {
-  handleTransaction,
-  // handleBlock
+  handleTransaction
 }
