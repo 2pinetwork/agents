@@ -1,4 +1,5 @@
 {
+  "jsonRpcUrl": "https://rpc-mumbai.maticvigil.com/",
   "addresses": {
     "80001": {
       "archimedes": "0x6e57884238c4Fae6BfA7AB82f5358c4c662884AE"
