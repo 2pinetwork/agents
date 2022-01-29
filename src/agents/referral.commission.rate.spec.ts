@@ -3,13 +3,13 @@
 import agent from './referral.commission.rate'
 import config from '../config.json'
 import archimedesAbi from '../abis/archimedes.json'
-import { ethers } from 'ethers'
 import {
+  createTransactionEvent,
+  ethers,
   FindingType,
   FindingSeverity,
   Finding,
-  HandleTransaction,
-  createTransactionEvent
+  HandleTransaction
 } from 'forta-agent'
 
 describe('referral commission rate', () => {
@@ -53,7 +53,7 @@ describe('referral commission rate', () => {
         Finding.fromObject({
           name:        'Referral commission rate changed',
           description: `New rate: ${rate}`,
-          alertId:     '2PI-1',
+          alertId:     '2PI-REFERRAL-COMMISSION-RATE',
           type:        FindingType.Info,
           severity:    FindingSeverity.Info
         })

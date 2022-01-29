@@ -1,7 +1,45 @@
 {
   "addresses": {
     "80001": {
-      "archimedes": "0x6e57884238c4Fae6BfA7AB82f5358c4c662884AE"
+      "archimedes": "0x6e57884238c4Fae6BfA7AB82f5358c4c662884AE",
+      "aaveV2LendingPool": "0x9198F13B08E299d85E096929fA9781A1E3d5d827"
     }
+  },
+  "events": {
+    "flashLoan": "event FlashLoan(address indexed target, address indexed initiator, address indexed asset, uint256 amount, uint256 premium, uint16 referralCode)"
+  },
+  "balanceDiffThresholds": {
+    "80001": [
+      {
+        "pid": 0,
+        "token": "MATIC",
+        "threshold": "25000000000000000000000"
+      },
+      {
+        "pid": 1,
+        "token": "DAI",
+        "threshold": "50000000000000000000000"
+      },
+      {
+        "pid": 2,
+        "token": "USDT",
+        "threshold": "50000000000"
+      },
+      {
+        "pid": 3,
+        "token": "USDC",
+        "threshold": "50000000000"
+      },
+      {
+        "pid": 4,
+        "token": "ETH",
+        "threshold": "200000000000000000000"
+      },
+      {
+        "pid": 5,
+        "token": "BTC",
+        "threshold": "100000000"
+      }
+    ]
   }
 }

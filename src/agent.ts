@@ -1,4 +1,5 @@
 import { HandleTransaction, TransactionEvent } from 'forta-agent'
+import flashLoanAgent from './agents/flash.loan'
 import referralCommissionRateAgent from './agents/referral.commission.rate'
 
 type Agent = {
@@ -6,11 +7,13 @@ type Agent = {
 }
 
 export const provideHandleTransaction = (
+  flashLoanAgent:              Agent,
   referralCommissionRateAgent: Agent
 ): HandleTransaction => {
   return async (txEvent: TransactionEvent) => {
     const findings = (
       await Promise.all([
+        flashLoanAgent.handleTransaction(txEvent),
         referralCommissionRateAgent.handleTransaction(txEvent)
       ])
     ).flat()
@@ -20,5 +23,8 @@ export const provideHandleTransaction = (
 }
 
 export default {
-  handleTransaction: provideHandleTransaction(referralCommissionRateAgent)
+  handleTransaction: provideHandleTransaction(
+    flashLoanAgent,
+    referralCommissionRateAgent
+  )
 }

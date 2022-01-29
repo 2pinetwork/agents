@@ -1,7 +1,7 @@
 import config from '../config.json'
 import archimedesAbi from '../abis/archimedes.json'
-import { ethers } from 'ethers'
 import {
+  ethers,
   Finding,
   FindingSeverity,
   FindingType,
@@ -28,7 +28,7 @@ const handleTransaction: HandleTransaction = async (txEvent: TransactionEvent) =
         Finding.fromObject({
           name:        'Referral commission rate changed',
           description: `New rate: ${txDescription.args[0]}`,
-          alertId:     '2PI-1',
+          alertId:     '2PI-REFERRAL-COMMISSION-RATE',
           severity:    FindingSeverity.Info,
           type:        FindingType.Info
         })
