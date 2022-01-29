@@ -1,0 +1,33 @@
+{
+  "src/abis/*.json": {
+    "type": "abi"
+  },
+
+  "src/agent.ts": {
+    "type": "agent",
+    "dispatch": "npm test -- --silent src/agent.spec.ts",
+    "alternate": "src/agent.spec.ts"
+  },
+
+  "src/agents/*.ts": {
+    "type": "agent",
+    "dispatch": "npm test -- --silent src/agents/{}.spec.ts",
+    "alternate": "src/agents/{}.spec.ts"
+  },
+
+  "src/agent.spec.ts": {
+    "type": "spec",
+    "dispatch": "npm test -- --silent src/agent.spec.ts",
+    "alternate": "src/agent.ts"
+  },
+
+  "src/agents/*.spec.ts": {
+    "type": "spec",
+    "dispatch": "npm test -- --silent src/agents/{}.spec.ts",
+    "alternate": "src/agents/{}.ts"
+  },
+
+  "src/config.json": {
+    "type": "config"
+  }
+}
