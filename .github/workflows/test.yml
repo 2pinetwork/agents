@@ -3,7 +3,7 @@ name: Test
 on: push
 
 env:
-  JSON_RPC_URL: https://rpc-mumbai.maticvigil.com/
+  JSON_RPC_HOST: https://rpc-mumbai.maticvigil.com/
 
 jobs:
   build:
