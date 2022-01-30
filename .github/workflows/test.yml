@@ -2,6 +2,9 @@ name: Test
 
 on: push
 
+env:
+  JSON_RPC_URL: https://rpc-mumbai.maticvigil.com/
+
 jobs:
   build:
     name: Test
