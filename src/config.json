@@ -5,6 +5,15 @@
       "aaveV2LendingPool": "0x9198F13B08E299d85E096929fA9781A1E3d5d827"
     }
   },
+  "adminEvents": {
+    "80001": {
+      "archimedes": [
+        "event RoleAdminChanged(bytes32 indexed role, bytes32 indexed previousAdminRole, bytes32 indexed newAdminRole)",
+        "event RoleGranted(bytes32 indexed role, address indexed account, address indexed sender)",
+        "event RoleRevoked(bytes32 indexed role, address indexed account, address indexed sender)"
+      ]
+    }
+  },
   "events": {
     "flashLoan": "event FlashLoan(address indexed target, address indexed initiator, address indexed asset, uint256 amount, uint256 premium, uint16 referralCode)"
   },

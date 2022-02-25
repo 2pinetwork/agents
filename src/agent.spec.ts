@@ -6,12 +6,14 @@ import { HandleTransaction, TransactionEvent } from 'forta-agent'
 describe('2pi agent', () => {
   let handleTransaction: HandleTransaction
 
+  const mockAdminEvents                 = { handleTransaction: jest.fn() }
   const mockReferralCommissionRateAgent = { handleTransaction: jest.fn() }
   const mockFlashLoanAgent              = { handleTransaction: jest.fn() }
   const mockTxEvent: TransactionEvent   = { some: 'event' } as any
 
   beforeAll(() => {
     handleTransaction = provideHandleTransaction(
+      mockAdminEvents,
       mockFlashLoanAgent,
       mockReferralCommissionRateAgent
     )
@@ -21,6 +23,7 @@ describe('2pi agent', () => {
     it('invokes referral commission rate agent and returns their findings', async () => {
       const mockFinding = { some: 'finding' }
 
+      mockAdminEvents.handleTransaction.mockReturnValueOnce([mockFinding])
       mockFlashLoanAgent.handleTransaction.mockReturnValueOnce([mockFinding])
       mockReferralCommissionRateAgent.handleTransaction.mockReturnValueOnce(
         [mockFinding]
@@ -28,7 +31,13 @@ describe('2pi agent', () => {
 
       const findings = await handleTransaction(mockTxEvent)
 
-      expect(findings).toStrictEqual([mockFinding, mockFinding])
+      expect(findings).toStrictEqual([mockFinding, mockFinding, mockFinding])
+      expect(
+        mockAdminEvents.handleTransaction
+      ).toHaveBeenCalledTimes(1)
+      expect(
+        mockAdminEvents.handleTransaction
+      ).toHaveBeenCalledWith(mockTxEvent)
       expect(
         mockFlashLoanAgent.handleTransaction
       ).toHaveBeenCalledTimes(1)
