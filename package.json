@@ -3,7 +3,10 @@
   "version": "0.0.2",
   "description": "2PI Network Forta Agent",
   "repository": "https://github.com/2pinetwork/agents",
-  "chainIds": [137],
+  "license": "MIT",
+  "chainIds": [
+    137
+  ],
   "scripts":{
     "build": "tsc",
     "start": "npm run start:dev",
@@ -14,6 +17,8 @@
     "range": "npm run build && forta-agent run --range",
     "file": "npm run build && forta-agent run --file",
     "publish": "forta-agent publish",
+    "info": "forta-agent info",
+    "logs": "forta-agent logs",
     "push": "forta-agent push",
     "disable": "forta-agent disable",
     "enable": "forta-agent enable",
