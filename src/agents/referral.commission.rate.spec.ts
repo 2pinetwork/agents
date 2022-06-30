@@ -19,9 +19,13 @@ describe('referral commission rate', () => {
   const iface   = new ethers.utils.Interface(archimedesAbi)
 
   const createTxEventWithReferralCommissionRate = (rate: number) => createTransactionEvent({
-    network:     network as any,
-    receipt:     {} as any,
-    block:       {} as any,
+    type:            {} as any,
+    traces:          {} as any,
+    contractAddress: {} as any,
+    block:           {} as any,
+    addresses:       {} as any,
+    logs:            {} as any,
+    network:         network as any,
     transaction: {
       to:   config.addresses[network].archimedes.toLowerCase(),
       data: iface.encodeFunctionData('setReferralCommissionRate', [rate])
@@ -35,9 +39,13 @@ describe('referral commission rate', () => {
   describe('handleTransaction', () => {
     it('returns empty findings if other function is invoked', async () => {
       const txEvent  = createTransactionEvent({
-        transaction: {} as any,
-        receipt:     {} as any,
-        block:       {} as any
+        type:            {} as any,
+        transaction:     {} as any,
+        traces:          {} as any,
+        contractAddress: {} as any,
+        block:           {} as any,
+        addresses:       {} as any,
+        logs:            {} as any
       })
       const findings = await handleTransaction(txEvent)
 

@@ -26,11 +26,14 @@ const defaultTypeMap: Record<any, any> = {
 }
 
 const createTxEvent = ({ logs, addresses }: any) => createTransactionEvent({
-  network:     network as any,
-  transaction: {} as any,
-  receipt:     { logs } as any,
-  block:       { number: 100 } as any,
-  addresses
+  type:            {} as any,
+  transaction:     {} as any,
+  traces:          {} as any,
+  contractAddress: {} as any,
+  network:         network as any,
+  block:           { number: 100 } as any,
+  addresses,
+  logs
 })
 
 const createEventLogs = (
